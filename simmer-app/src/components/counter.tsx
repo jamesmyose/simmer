@@ -1,10 +1,9 @@
-import { link } from "fs";
 import * as React from "react";
-import { Component } from "react";
 
 interface CounterProps {
     counter: { id: number; value: number };
     onDelete: (counterId: number) => void;
+    onIncrement: (counter: { id: number; value: number }) => void;
 }
 
 interface CounterState {}
@@ -15,10 +14,6 @@ class Counter extends React.Component<CounterProps, CounterState> {
     //     this.handleIncrement = this.handleIncrement.bind(this);
     // }
 
-    handleIncrement = () => {
-        this.setState({ value: this.state.value + 1 });
-    };
-
     render() {
         return (
             <React.Fragment>
@@ -26,7 +21,7 @@ class Counter extends React.Component<CounterProps, CounterState> {
                     {this.formatCount()}
                 </span>
                 <button
-                    onClick={this.handleIncrement}
+                    onClick={() => this.props.onIncrement(this.props.counter)}
                     className="btn btn-secondary btn-sm"
                 >
                     Increment
@@ -44,12 +39,12 @@ class Counter extends React.Component<CounterProps, CounterState> {
 
     private getBadgeClasses() {
         let classes: string = "badge m-2 bg-";
-        classes += this.state.value === 0 ? "warning" : "primary";
+        classes += this.props.counter.value === 0 ? "warning" : "primary";
         return classes;
     }
 
     formatCount() {
-        const { value: count } = this.state;
+        const { value: count } = this.props.counter;
         return count === 0 ? "Zero" : count;
     }
 }

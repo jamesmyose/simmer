@@ -1,6 +1,5 @@
-import { count } from "console";
 import * as React from "react";
-import { Component, useState } from "react";
+import { useState } from "react";
 import Counter from "./counter";
 
 function Counters() {
@@ -26,6 +25,14 @@ function Counters() {
         setCounters(newCounters);
     };
 
+    const handleIncrement = (counter: { id: number; value: number }) => {
+        const newCounters = [...counters];
+        const index = counters.indexOf(counter);
+        newCounters[index] = { ...counter };
+        newCounters[index].value++;
+        setCounters(newCounters);
+    };
+
     return (
         <React.Fragment>
             <button
@@ -39,6 +46,7 @@ function Counters() {
                     <Counter
                         key={counter.id}
                         onDelete={handleDelete}
+                        onIncrement={handleIncrement}
                         counter={counter}
                     ></Counter>
                 </div>
