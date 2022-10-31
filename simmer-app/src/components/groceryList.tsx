@@ -14,7 +14,17 @@ function GroceryList() {
         e.preventDefault();
         // if there is something in item text field
         if (item.name) {
-            setList([...list, item]);
+            const indexOfDuplicate = list.findIndex(
+                (element: any) => element.name === item.name
+            );
+            console.log(indexOfDuplicate);
+            console.log(list);
+            if (indexOfDuplicate !== -1) {
+                list[indexOfDuplicate].quantity += item.quantity;
+            } else {
+                setList([...list, item]);
+            }
+
             setItem({ id: "", name: "", quantity: 0 });
         }
     };
@@ -51,6 +61,7 @@ function GroceryList() {
                 return (
                     <div key={item.id}>
                         <label>{item.name}</label>
+                        <label>{item.quantity}</label>
                         <button onClick={() => handleRemove(index)}>
                             remove
                         </button>
