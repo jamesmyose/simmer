@@ -1,7 +1,7 @@
 import * as React from "react";
 
 interface ItemProps {
-    id: number;
+    id: string;
     name: string;
     quantity: number;
 }

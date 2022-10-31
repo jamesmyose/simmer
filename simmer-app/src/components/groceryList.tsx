@@ -1,8 +1,9 @@
 import * as React from "react";
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 function GroceryList() {
-    const [item, setItem] = useState({ id: 0, name: "", quantity: 0 });
+    const [item, setItem] = useState({ id: "", name: "", quantity: 0 });
     const [list, setList]: any = useState([]);
 
     /** Event hanlder for add button on the grocery list
@@ -14,7 +15,7 @@ function GroceryList() {
         // if there is something in item text field
         if (item.name) {
             setList([...list, item]);
-            setItem({ id: 0, name: "", quantity: 0 });
+            setItem({ id: "", name: "", quantity: 0 });
         }
     };
 
@@ -24,8 +25,8 @@ function GroceryList() {
      */
     const handleChange = (e: any) => {
         setItem({
-            // set id to final entry's id + 1 to account for entries being removed
-            id: list[list.length - 1].id + 1,
+            // unique id
+            id: uuidv4(),
             name: e.target.value,
             quantity: 1,
         });
@@ -43,9 +44,7 @@ function GroceryList() {
         <React.Fragment>
             <h1>Grocery List</h1>
             <form onSubmit={handleAdd}>
-                <input value={item.name} onChange={handleChange}>
-                    item
-                </input>
+                <input value={item.name} onChange={handleChange}></input>
                 <button type="submit">Add</button>
             </form>
             {list.map((item: any, index: number) => {
