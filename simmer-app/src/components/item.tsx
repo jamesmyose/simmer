@@ -4,6 +4,8 @@ interface ItemProps {
     id: string;
     name: string;
     quantity: number;
+    quantityType: string;
+    complete: false;
 }
 
 function Item({ id, name, quantity }: ItemProps) {
